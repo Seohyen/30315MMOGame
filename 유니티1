@@ -1,1 +1,50 @@
+유니티에서도 dll파일이 라이브러리 형태로 제공해주기 때문에 많은 부분을 수정하지 않아도 됨 
+수정은 필요함 (유니티에서 필요한 함수 등) 
 
+ReadOnlySpan 오류 segment로 수정
+chat에 slice도 segment로 수정 
+
+Span TryWriteBytes사용 불가능 수정 -> byte 배열 사용과 Array.Copy, 비트연산 등
+
+success 관리하던 곳 일단 삭제 
+
+
+패킷 수정에 맞춰주기 위해 Span부분 삭제  success 삭제, Slice 삭제 , Array.Copy 추가 
+
+패킷 수정 완료 후 dll 파일 실행 
+ 
+배치파일 젠패킷  복사 스크립트폴더안에 클라이언트 복사 
+
+테스트를 위해 네트워크 매니저 생성 
+
+더미클라이언트 서버가 통신하는 와중에 더미클라이언트가 전송한 데이터가 서버를 통해 유니티에 오는 것을 확인 
+NetworkManager.cs
+
+using System.Collections;
+using System.Collections.Generic;
+using System.Net;
+using DummyClient;
+using ServerCore;
+using UnityEngine;
+
+public class NetworkManager : MonoBehaviour
+{
+    ServerSession _session = new ServerSession();
+    // Start is called before the first frame update
+    void Start()
+    {
+        string host = Dns.GetHostName();
+        IPHostEntry ipHost =  Dns.GetHostEntry(host);
+        IPAddress ipAddr = ipHost.AddressList[0];
+        IPEndPoint endPoint = new IPEndPoint(ipAddr, 1111);
+        
+        Connector connector = new Connector();
+        connector.Connect(endPoint, () => {return _session;}, 1);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
