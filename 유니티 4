@@ -52,6 +52,14 @@ Player : 모든 플레이어가 가지고 있는 데이터
 
 MyPlayer : 내 플레이어
 
+PlayerManager
+이동하는 모든 플레이어 관리 
+
+Resources 파일 생성 
+안에 Player 프리팹 생성 
+
+PlayerManager  - Player 생성 
+
 
 MyPlayer에서 패킷을 보내는 것이 좋음
 이유는 ? 
