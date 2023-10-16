@@ -10,7 +10,7 @@ Player.Cs
 MyPlayer.Cs
 스크립트 생성  
 
-Player.cs
+Player.cs 
 
 using UnityEngine;
 
